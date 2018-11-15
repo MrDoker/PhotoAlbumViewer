@@ -7,17 +7,29 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F947A23A219DC1F5000E537D /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F947A239219DC1F5000E537D /* ImageCollectionViewCell.swift */; };
+		F947A23C219DC674000E537D /* RoundedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F947A23B219DC674000E537D /* RoundedImageView.swift */; };
+		F947A243219DF1E1000E537D /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F947A242219DF1E1000E537D /* DataService.swift */; };
+		F947A245219DF1FA000E537D /* ImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F947A244219DF1FA000E537D /* ImageModel.swift */; };
+		F947A247219DF841000E537D /* ImageDownloadService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F947A246219DF841000E537D /* ImageDownloadService.swift */; };
+		F947A249219E0B13000E537D /* PopImageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F947A248219E0B13000E537D /* PopImageVC.swift */; };
 		F9A3670C219DB783001469D8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9A3670B219DB783001469D8 /* AppDelegate.swift */; };
-		F9A3670E219DB783001469D8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9A3670D219DB783001469D8 /* ViewController.swift */; };
+		F9A3670E219DB783001469D8 /* AlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9A3670D219DB783001469D8 /* AlbumViewController.swift */; };
 		F9A36711219DB783001469D8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F9A3670F219DB783001469D8 /* Main.storyboard */; };
 		F9A36713219DB784001469D8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F9A36712219DB784001469D8 /* Assets.xcassets */; };
 		F9A36716219DB784001469D8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F9A36714219DB784001469D8 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F947A239219DC1F5000E537D /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
+		F947A23B219DC674000E537D /* RoundedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedImageView.swift; sourceTree = "<group>"; };
+		F947A242219DF1E1000E537D /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
+		F947A244219DF1FA000E537D /* ImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageModel.swift; sourceTree = "<group>"; };
+		F947A246219DF841000E537D /* ImageDownloadService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloadService.swift; sourceTree = "<group>"; };
+		F947A248219E0B13000E537D /* PopImageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopImageVC.swift; sourceTree = "<group>"; };
 		F9A36708219DB783001469D8 /* PhotoAlbumViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoAlbumViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9A3670B219DB783001469D8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		F9A3670D219DB783001469D8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		F9A3670D219DB783001469D8 /* AlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewController.swift; sourceTree = "<group>"; };
 		F9A36710219DB783001469D8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F9A36712219DB784001469D8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F9A36715219DB784001469D8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -35,6 +47,49 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F947A23D219DD6F5000E537D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F947A244219DF1FA000E537D /* ImageModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		F947A23E219DD6FB000E537D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F947A239219DC1F5000E537D /* ImageCollectionViewCell.swift */,
+				F947A23B219DC674000E537D /* RoundedImageView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		F947A23F219DD700000E537D /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				F9A3670D219DB783001469D8 /* AlbumViewController.swift */,
+				F947A248219E0B13000E537D /* PopImageVC.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		F947A240219DD706000E537D /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				F947A242219DF1E1000E537D /* DataService.swift */,
+				F947A246219DF841000E537D /* ImageDownloadService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		F947A241219DD730000E537D /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				F9A3670B219DB783001469D8 /* AppDelegate.swift */,
+			);
+			path = Support;
+			sourceTree = "<group>";
+		};
 		F9A366FF219DB783001469D8 = {
 			isa = PBXGroup;
 			children = (
@@ -54,12 +109,15 @@
 		F9A3670A219DB783001469D8 /* PhotoAlbumViewer */ = {
 			isa = PBXGroup;
 			children = (
-				F9A3670B219DB783001469D8 /* AppDelegate.swift */,
-				F9A3670D219DB783001469D8 /* ViewController.swift */,
+				F947A241219DD730000E537D /* Support */,
+				F947A240219DD706000E537D /* Services */,
+				F947A23F219DD700000E537D /* Controller */,
+				F947A23E219DD6FB000E537D /* View */,
+				F947A23D219DD6F5000E537D /* Model */,
 				F9A3670F219DB783001469D8 /* Main.storyboard */,
-				F9A36712219DB784001469D8 /* Assets.xcassets */,
-				F9A36714219DB784001469D8 /* LaunchScreen.storyboard */,
 				F9A36717219DB784001469D8 /* Info.plist */,
+				F9A36714219DB784001469D8 /* LaunchScreen.storyboard */,
+				F9A36712219DB784001469D8 /* Assets.xcassets */,
 			);
 			path = PhotoAlbumViewer;
 			sourceTree = "<group>";
@@ -135,8 +193,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F9A3670E219DB783001469D8 /* ViewController.swift in Sources */,
+				F947A23C219DC674000E537D /* RoundedImageView.swift in Sources */,
+				F947A245219DF1FA000E537D /* ImageModel.swift in Sources */,
+				F9A3670E219DB783001469D8 /* AlbumViewController.swift in Sources */,
+				F947A23A219DC1F5000E537D /* ImageCollectionViewCell.swift in Sources */,
 				F9A3670C219DB783001469D8 /* AppDelegate.swift in Sources */,
+				F947A247219DF841000E537D /* ImageDownloadService.swift in Sources */,
+				F947A249219E0B13000E537D /* PopImageVC.swift in Sources */,
+				F947A243219DF1E1000E537D /* DataService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
