@@ -13,7 +13,7 @@ struct ImageForPass {
     let image: UIImage
 }
 
-class AlbumViewController: UIViewController {
+class AlbumViewController: UIViewController, UIGestureRecognizerDelegate {
     
     @IBOutlet weak var collectionView: UICollectionView!
     let refresh = UIRefreshControl()
@@ -21,6 +21,7 @@ class AlbumViewController: UIViewController {
     var imageModelArray = [ImageModel]()
     
     var imageForPass: ImageForPass?
+    var lastUsedCellIndex = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,9 +35,13 @@ class AlbumViewController: UIViewController {
         
         registerForPreviewing(with: self, sourceView: collectionView!)
 
-        //self.collectionView.scrollToItem(at: IndexPath(row: 20, section: 0), at: UICollectionView.ScrollPosition.bottom, animated: true)
-
         fetchData()
+        
+        let doubleTap = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap))
+        doubleTap.numberOfTapsRequired = 2
+        doubleTap.delegate = self
+        doubleTap.delaysTouchesBegan = true
+        view.addGestureRecognizer(doubleTap)
     }
     
     func fetchData() {
@@ -50,6 +55,14 @@ class AlbumViewController: UIViewController {
             } else {
                 print("Error: Cant Fetch Data From JSON")
             }
+        }
+    }
+    
+    @objc func handleDoubleTap() {
+        if lastUsedCellIndex + 10 >= collectionView.numberOfItems(inSection: 0) {
+            collectionView.scrollToItem(at: IndexPath(row: collectionView.numberOfItems(inSection: 0) - 1, section: 0), at: UICollectionView.ScrollPosition.bottom, animated: true)
+        } else {
+            collectionView.scrollToItem(at: IndexPath(row: lastUsedCellIndex + 10, section: 0), at: UICollectionView.ScrollPosition.bottom, animated: true)
         }
     }
     
@@ -73,6 +86,7 @@ extension AlbumViewController: UICollectionViewDelegate, UICollectionViewDataSou
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        lastUsedCellIndex = indexPath.row
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "itemCell", for: indexPath) as? ImageCollectionViewCell {
             cell.configCellFor(imageModel: imageModelArray[indexPath.row])
             return cell

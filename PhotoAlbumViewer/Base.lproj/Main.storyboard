@@ -34,7 +34,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="192" height="141"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wallhaven-409897" translatesAutoresizingMaskIntoConstraints="NO" id="Okg-ke-r4g" customClass="RoundedImageView" customModule="PhotoAlbumViewer" customModuleProvider="target">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loadingPlaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="Okg-ke-r4g" customClass="RoundedImageView" customModule="PhotoAlbumViewer" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="0.0" width="192" height="107"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label sodmkfo;dskm pdsm f sd'[f " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="bHB-Vj-x8v">
@@ -160,6 +160,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="wallhaven-409897" width="3840" height="2160"/>
+        <image name="loadingPlaceholder" width="333" height="166"/>
     </resources>
 </document>

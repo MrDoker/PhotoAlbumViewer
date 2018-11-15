@@ -16,4 +16,9 @@ struct ImageModel: Decodable {
     let thumbnailUrl: String
 }
 
+struct Album {
+    let albumId: Int
+    let images: [ImageModel]
+}
+
 
