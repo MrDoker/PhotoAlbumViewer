@@ -10,7 +10,7 @@ import Foundation
 
 class DataService {
     
-    func fetchDataFromJSON(completion: @escaping (_ images:[ImageModel]?) -> ()) {
+    func fetchDataFromJSON(completion: @escaping (_ album:[Album]?) -> ()) {
         let urlString = "https://jsonplaceholder.typicode.com/photos"
         guard let url = URL(string: urlString) else { return }
         
@@ -29,9 +29,9 @@ class DataService {
                     let decoder = JSONDecoder()
                     imageModelArray = try decoder.decode([ImageModel].self, from: data)
                     
-                    self.sortImageModels(imageModelArray)
+                    let album = self.sortImageModels(imageModelArray)
                     
-                    completion(imageModelArray)
+                    completion(album)
                     
                 } catch let jsonError {
                     print(jsonError.localizedDescription)
@@ -49,7 +49,6 @@ class DataService {
         for albumID in 1...lastAlbumID {
             let imagesForAlbum = imageModelArray.filter({ $0.albumId == albumID })
             albumsArray.append(Album(albumId: albumID, images: imagesForAlbum))
-            print(albumID, imagesForAlbum.count)
         }
         return albumsArray
     }

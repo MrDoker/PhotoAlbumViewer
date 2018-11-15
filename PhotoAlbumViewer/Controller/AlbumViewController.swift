@@ -18,7 +18,8 @@ class AlbumViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBOutlet weak var collectionView: UICollectionView!
     let refresh = UIRefreshControl()
     
-    var imageModelArray = [ImageModel]()
+    var currentAlbum = 0
+    var albumsArray = [Album]()
     
     var imageForPass: ImageForPass?
     var lastUsedCellIndex = 0
@@ -42,14 +43,15 @@ class AlbumViewController: UIViewController, UIGestureRecognizerDelegate {
         doubleTap.delegate = self
         doubleTap.delaysTouchesBegan = true
         view.addGestureRecognizer(doubleTap)
+        
     }
     
     func fetchData() {
         refresh.beginRefreshing()
         let dataService = DataService()
-        dataService.fetchDataFromJSON { (imagesArray) in
-            if let imagesArray = imagesArray {
-                self.imageModelArray = imagesArray
+        dataService.fetchDataFromJSON { (albumsArray) in
+            if let albumsArray = albumsArray {
+                self.albumsArray = albumsArray
                 self.refresh.endRefreshing()
                 self.collectionView.reloadData()
             } else {
@@ -82,13 +84,17 @@ class AlbumViewController: UIViewController, UIGestureRecognizerDelegate {
 
 extension AlbumViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return imageModelArray.count/100
+        //if data not arrived yet
+        if albumsArray.count == 0 {
+            return 0
+        }
+        return albumsArray[currentAlbum].images.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         lastUsedCellIndex = indexPath.row
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "itemCell", for: indexPath) as? ImageCollectionViewCell {
-            cell.configCellFor(imageModel: imageModelArray[indexPath.row])
+            cell.configCellFor(imageModel: albumsArray[currentAlbum].images[indexPath.row])
             return cell
         }
         return ImageCollectionViewCell()
@@ -100,13 +106,15 @@ extension AlbumViewController: UICollectionViewDelegate, UICollectionViewDataSou
         return CGSize(width: collectionViewWidth/2.0 - 15, height: collectionViewHeight/5 - 10)
     }
     
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let cell = collectionView.cellForItem(at: indexPath) as? ImageCollectionViewCell {
             imageForPass = ImageForPass(title: cell.infoLabel.text ?? "Title", image: cell.imageView.image ?? UIImage())
             performSegue(withIdentifier: "presentPopImageVC", sender: nil)
         }
-        
     }
+    
+    
 }
 
 extension AlbumViewController: UIViewControllerPreviewingDelegate {
@@ -125,3 +133,7 @@ extension AlbumViewController: UIViewControllerPreviewingDelegate {
     }
 }
 
+extension AlbumViewController: UIScrollViewDelegate {
+    
+    
+}
