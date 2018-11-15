@@ -67,18 +67,42 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="SsV-IY-6kt">
+                                <rect key="frame" x="0.0" y="692" width="414" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="GQB-XG-tOr"/>
+                                </constraints>
+                                <items>
+                                    <barButtonItem systemItem="rewind" id="Gln-2w-t3T">
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="UJF-uX-rFf"/>
+                                    <barButtonItem title="Page: 1 of 50" id="5Lb-4s-zbG">
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="eY6-Gj-J0N"/>
+                                    <barButtonItem systemItem="fastForward" id="y2I-Nm-nBs">
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" red="0.14901960784313725" green="0.24313725490196078" blue="0.32941176470588235" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="tNc-Mq-vue" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="IU1-Lz-lmr"/>
                             <constraint firstItem="tNc-Mq-vue" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="KOP-Oe-yy5"/>
                             <constraint firstItem="tNc-Mq-vue" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="25" id="PXZ-Wb-dgR"/>
+                            <constraint firstItem="SsV-IY-6kt" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="RXT-Og-LSI"/>
                             <constraint firstItem="tNc-Mq-vue" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="kfI-6n-6A0"/>
+                            <constraint firstItem="SsV-IY-6kt" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="qcH-Tx-22R"/>
+                            <constraint firstItem="SsV-IY-6kt" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="r6C-5Q-sYD"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
                         <outlet property="collectionView" destination="tNc-Mq-vue" id="TPi-hL-mxT"/>
+                        <outlet property="tool" destination="SsV-IY-6kt" id="OF5-B1-Oks"/>
+                        <outlet property="toolbarHeightConstraint" destination="GQB-XG-tOr" id="fX8-K6-Y7F"/>
                         <segue destination="htp-gm-9QM" kind="presentation" identifier="presentPopImageVC" id="87D-ni-li5"/>
                     </connections>
                 </viewController>

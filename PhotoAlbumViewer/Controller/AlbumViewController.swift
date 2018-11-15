@@ -18,6 +18,10 @@ class AlbumViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBOutlet weak var collectionView: UICollectionView!
     let refresh = UIRefreshControl()
     
+    @IBOutlet weak var tool: UIToolbar!
+    @IBOutlet weak var toolbarHeightConstraint: NSLayoutConstraint!
+    
+    
     var currentAlbum = 0
     var albumsArray = [Album]()
     
@@ -44,6 +48,11 @@ class AlbumViewController: UIViewController, UIGestureRecognizerDelegate {
         doubleTap.delaysTouchesBegan = true
         view.addGestureRecognizer(doubleTap)
         
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.navigationController?.hidesBarsOnSwipe = true
     }
     
     func fetchData() {
@@ -134,6 +143,19 @@ extension AlbumViewController: UIViewControllerPreviewingDelegate {
 }
 
 extension AlbumViewController: UIScrollViewDelegate {
-    
-    
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        
+        
+        if(velocity.y>0) {
+            toolbarHeightConstraint.constant = 0
+            UIView.animate(withDuration: 0.5) {
+                self.view.layoutIfNeeded()
+            }
+        } else if velocity.y < 0 {
+            toolbarHeightConstraint.constant = 44
+            UIView.animate(withDuration: 0.5) {
+                self.view.layoutIfNeeded()
+            }
+        }
+    }
 }
