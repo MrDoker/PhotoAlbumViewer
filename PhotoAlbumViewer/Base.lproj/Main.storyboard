@@ -75,20 +75,46 @@
                                 <items>
                                     <barButtonItem systemItem="rewind" id="Gln-2w-t3T">
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <action selector="previousAlbumPageAction:" destination="BYZ-38-t0r" id="n5O-vL-20F"/>
+                                        </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="UJF-uX-rFf"/>
-                                    <barButtonItem title="Page: 1 of 50" id="5Lb-4s-zbG">
+                                    <barButtonItem title="Page: 1 of 50" style="plain" id="5Lb-4s-zbG">
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="eY6-Gj-J0N"/>
                                     <barButtonItem systemItem="fastForward" id="y2I-Nm-nBs">
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <action selector="nextAlbumPageAction:" destination="BYZ-38-t0r" id="VP0-dq-2ke"/>
+                                        </connections>
                                     </barButtonItem>
                                 </items>
                             </toolbar>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="UeQ-RM-eMx">
+                                <rect key="frame" x="120.66666666666669" y="325.66666666666669" width="173" height="84.666666666666686"/>
+                                <subviews>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Bl9-xk-ZJY">
+                                        <rect key="frame" x="67.999999999999986" y="0.0" width="37" height="37"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </activityIndicatorView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LOADING..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cjJ-wf-Xxg">
+                                        <rect key="frame" x="0.0" y="41" width="173" height="43.666666666666657"/>
+                                        <fontDescription key="fontDescription" name="Avenir-HeavyOblique" family="Avenir" pointSize="31"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                        <color key="shadowColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <size key="shadowOffset" width="0.0" height="1"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" red="0.14901960784313725" green="0.24313725490196078" blue="0.32941176470588235" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="UeQ-RM-eMx" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="1Y7-I2-xKw"/>
+                            <constraint firstItem="UeQ-RM-eMx" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="AvJ-xa-J9X"/>
                             <constraint firstItem="tNc-Mq-vue" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="IU1-Lz-lmr"/>
                             <constraint firstItem="tNc-Mq-vue" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="KOP-Oe-yy5"/>
                             <constraint firstItem="tNc-Mq-vue" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="25" id="PXZ-Wb-dgR"/>
@@ -100,15 +126,20 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="Bl9-xk-ZJY" id="510-Qc-7oh"/>
                         <outlet property="collectionView" destination="tNc-Mq-vue" id="TPi-hL-mxT"/>
-                        <outlet property="tool" destination="SsV-IY-6kt" id="OF5-B1-Oks"/>
+                        <outlet property="currentPageCounerBarItem" destination="5Lb-4s-zbG" id="Qtw-9e-zrc"/>
+                        <outlet property="loadingStackView" destination="UeQ-RM-eMx" id="3eT-WD-x26"/>
+                        <outlet property="nextAlbumPageBarButton" destination="y2I-Nm-nBs" id="whZ-GJ-eex"/>
+                        <outlet property="previousAlbumPageBarButton" destination="Gln-2w-t3T" id="cLL-Kz-eqV"/>
+                        <outlet property="toolBarForAlbum" destination="SsV-IY-6kt" id="OF5-B1-Oks"/>
                         <outlet property="toolbarHeightConstraint" destination="GQB-XG-tOr" id="fX8-K6-Y7F"/>
                         <segue destination="htp-gm-9QM" kind="presentation" identifier="presentPopImageVC" id="87D-ni-li5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="133.59999999999999" y="133.5832083958021"/>
+            <point key="canvasLocation" x="133.33333333333334" y="132.88043478260872"/>
         </scene>
         <!--Pop ImageVC-->
         <scene sceneID="nUt-AN-NNv">

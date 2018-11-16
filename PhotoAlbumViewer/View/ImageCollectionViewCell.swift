@@ -14,6 +14,8 @@ class ImageCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var infoLabel: UILabel!
     
     func configCellFor(imageModel: ImageModel) {
+        imageView.image = #imageLiteral(resourceName: "loadingPlaceholder")
+        
         infoLabel.text = imageModel.title
         ImageDownloadService.instance.loadImageUsingCacheWithUrlString(imageModel.url) { (image) in
             guard let downloadedImage = image else {

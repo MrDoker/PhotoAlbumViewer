@@ -15,6 +15,8 @@ class ImageDownloadService {
     let imageCache = NSCache<AnyObject, AnyObject>()
     
     func loadImageUsingCacheWithUrlString(_ urlString: String, handler: @escaping (_ image: UIImage?) ->() ) {
+        //for saving memory;)
+        imageCache.countLimit = 100
         //check cache for image
         if let cachedImage = imageCache.object(forKey: urlString as AnyObject) as? UIImage {
             handler(cachedImage)

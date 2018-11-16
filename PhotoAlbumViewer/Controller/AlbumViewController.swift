@@ -14,59 +14,96 @@ struct ImageForPass {
 }
 
 class AlbumViewController: UIViewController, UIGestureRecognizerDelegate {
-    
     @IBOutlet weak var collectionView: UICollectionView!
-    let refresh = UIRefreshControl()
     
-    @IBOutlet weak var tool: UIToolbar!
+    @IBOutlet weak var toolBarForAlbum: UIToolbar!
+    @IBOutlet weak var previousAlbumPageBarButton: UIBarButtonItem!
+    @IBOutlet weak var nextAlbumPageBarButton: UIBarButtonItem!
+    @IBOutlet weak var currentPageCounerBarItem: UIBarButtonItem!
     @IBOutlet weak var toolbarHeightConstraint: NSLayoutConstraint!
     
+    let refresh = UIRefreshControl()
     
     var currentAlbum = 0
     var albumsArray = [Album]()
     
     var imageForPass: ImageForPass?
     var lastUsedCellIndex = 0
+    var isDataLoaded = false
+    
+    @IBOutlet weak var loadingStackView: UIStackView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         collectionView.delegate = self
         collectionView.dataSource = self
-        
         collectionView.backgroundColor = #colorLiteral(red: 0.1490196078, green: 0.2431372549, blue: 0.3294117647, alpha: 1)
+        
         collectionView.addSubview(refresh)
-        
         refresh.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
-        
+
+        //for 3dTouch
         registerForPreviewing(with: self, sourceView: collectionView!)
 
         fetchData()
         
+        //doubletap scroll to 10 rows ahead
         let doubleTap = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap))
         doubleTap.numberOfTapsRequired = 2
         doubleTap.delegate = self
         doubleTap.delaysTouchesBegan = true
         view.addGestureRecognizer(doubleTap)
-        
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        self.navigationController?.hidesBarsOnSwipe = true
+    func configToolBar() {
+        currentPageCounerBarItem.title = "Album: \(currentAlbum + 1) of \(albumsArray.count)"
+        if currentAlbum == 0 {
+            previousAlbumPageBarButton.isEnabled = false
+        } else if currentAlbum == albumsArray.count-1 {
+            nextAlbumPageBarButton.isEnabled = false
+        } else {
+            nextAlbumPageBarButton.isEnabled = true
+            previousAlbumPageBarButton.isEnabled = true
+        }
     }
     
+    //MARK: FetchData
     func fetchData() {
+        //reload all
         refresh.beginRefreshing()
+        toolBarForAlbum.isHidden = true
+        isDataLoaded = false
+        self.activityIndicator.startAnimating()
+        self.loadingStackView.isHidden = false
+        currentAlbum = 0
+        
         let dataService = DataService()
         dataService.fetchDataFromJSON { (albumsArray) in
             if let albumsArray = albumsArray {
+                self.isDataLoaded = true
                 self.albumsArray = albumsArray
-                self.refresh.endRefreshing()
+                
                 self.collectionView.reloadData()
+                self.configToolBar()
+                
+                self.refresh.endRefreshing()
+                self.toolBarForAlbum.isHidden = false
+                self.activityIndicator.stopAnimating()
+                self.loadingStackView.isHidden = true
             } else {
                 print("Error: Cant Fetch Data From JSON")
+                self.showError()
             }
         }
+    }
+    
+    func showError() {
+        let errorAlert = UIAlertController(title: "Somethig went wrong", message: "Check internet connection and try again or restart app", preferredStyle: .alert)
+        errorAlert.addAction(UIAlertAction(title: "Try again", style: .default, handler: { (_) in
+            self.fetchData()
+        }))
     }
     
     @objc func handleDoubleTap() {
@@ -81,7 +118,19 @@ class AlbumViewController: UIViewController, UIGestureRecognizerDelegate {
         ImageDownloadService.instance.imageCache.removeAllObjects()
         fetchData()
     }
-
+    
+    @IBAction func previousAlbumPageAction(_ sender: Any) {
+        currentAlbum -= 1
+        configToolBar()
+        collectionView.reloadData()
+    }
+    
+    @IBAction func nextAlbumPageAction(_ sender: Any) {
+        currentAlbum += 1
+        configToolBar()
+        collectionView.reloadData()
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "presentPopImageVC" {
             let popVC = segue.destination as? PopImageVC
@@ -91,10 +140,10 @@ class AlbumViewController: UIViewController, UIGestureRecognizerDelegate {
     }
 }
 
+//MARK: extension Collection Delegate and DataSource
 extension AlbumViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        //if data not arrived yet
-        if albumsArray.count == 0 {
+        if !isDataLoaded {
             return 0
         }
         return albumsArray[currentAlbum].images.count
@@ -126,6 +175,7 @@ extension AlbumViewController: UICollectionViewDelegate, UICollectionViewDataSou
     
 }
 
+//MARK: extension for 3dTouch
 extension AlbumViewController: UIViewControllerPreviewingDelegate {
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
         guard let indexPath = collectionView?.indexPathForItem(at: location), let cell = collectionView?.cellForItem(at: indexPath) as? ImageCollectionViewCell else { return nil}
@@ -142,9 +192,9 @@ extension AlbumViewController: UIViewControllerPreviewingDelegate {
     }
 }
 
+//MARK: extension for Hiding Toolbar
 extension AlbumViewController: UIScrollViewDelegate {
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        
         
         if(velocity.y>0) {
             toolbarHeightConstraint.constant = 0

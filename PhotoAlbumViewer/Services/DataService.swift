@@ -29,10 +29,8 @@ class DataService {
                     let decoder = JSONDecoder()
                     imageModelArray = try decoder.decode([ImageModel].self, from: data)
                     
-                    let album = self.sortImageModels(imageModelArray)
-                    
+                    let album = self.createAlbumsFrom(imageModelArray)
                     completion(album)
-                    
                 } catch let jsonError {
                     print(jsonError.localizedDescription)
                     completion(nil)
@@ -42,7 +40,8 @@ class DataService {
         }.resume()
     }
     
-    func sortImageModels(_ imageModelArray: [ImageModel]) -> [Album]? {
+    
+    func createAlbumsFrom(_ imageModelArray: [ImageModel]) -> [Album]? {
         guard let lastAlbumID = imageModelArray.last?.albumId else { return nil }
         var albumsArray = [Album]()
         
