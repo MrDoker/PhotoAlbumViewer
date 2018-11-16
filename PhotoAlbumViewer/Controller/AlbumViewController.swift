@@ -104,6 +104,7 @@ class AlbumViewController: UIViewController, UIGestureRecognizerDelegate {
         errorAlert.addAction(UIAlertAction(title: "Try again", style: .default, handler: { (_) in
             self.fetchData()
         }))
+        present(errorAlert, animated: true, completion: nil)
     }
     
     @objc func handleDoubleTap() {
